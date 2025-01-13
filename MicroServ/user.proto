@@ -1,0 +1,35 @@
+syntax = "proto3";
+package hotel;
+
+// Definition du message user
+message User {
+  string id = 1;
+  string name = 2;
+  string roomNumber = 3;
+}
+
+// Définition des messages de requête et de réponse
+
+message GetUserRequest {
+  string user_id = 1;
+}
+
+message GetUserResponse {
+  User user = 1;
+}
+
+message SearchUsersRequest {
+  string query = 1;
+}
+
+message SearchUsersResponse {
+  repeated User users = 1;
+}
+
+// Définition du service des utilisateurs
+
+service UserService {
+  rpc GetUser(GetUserRequest) returns (GetUserResponse);
+  rpc SearchUsers(SearchUsersRequest) returns (SearchUsersResponse);
+  // Add other methods if needed
+}

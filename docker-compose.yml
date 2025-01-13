@@ -1,0 +1,42 @@
+version: '3.9'
+services:
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    networks:
+      - app-network
+
+  api:
+    build:
+      context: ./apiGateway 
+    ports:
+      - "3000:3000"
+    depends_on:
+      - MicroSer
+      - MicroServ
+
+  hotel-service:
+    build:
+      context: ./MicroSer
+    ports:
+      - "50051:50051"
+    depends_on:
+      - mongo
+    environment:
+      MONGO_URL: mongodb://mongo:27017/hotel
+
+  user-service:
+    build:
+      context: ./MicroServ
+    ports:
+      - "50052:50052"
+    depends_on:
+      - mongo
+    environment:
+      MONGO_URL: mongodb://mongo:27017/hotel
+
+networks:
+  app-network:
+    driver: bridge
