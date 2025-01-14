@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-gateway
+  labels:
+    app: api-gateway
+spec:
+  replicas: 1  # Set replicas to 1 unless you need scaling for the gateway
+  selector:
+    matchLabels:
+      app: api-gateway
+  template:
+    metadata:
+      labels:
+        app: api-gateway
+    spec:
+      containers:
+        - name: api-gateway
+          image: your-docker-username/api-gateway:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: HOTEL_SERVICE_URL
+              value: http://hotel-service:80  # Internal service name of HotelService
+            - name: USER_SERVICE_URL
+              value: http://user-service:80   # Internal service name of UserService

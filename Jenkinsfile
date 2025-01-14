@@ -43,7 +43,7 @@ pipeline {
                 script {
                     // Login to Docker Hub using stored credentials
                     echo "Logging into Docker Hub as ${env.DOCKER_HUB_REPO}"
-                    withCredentials([usernamePassword(credentialsId: '63fd3a88-d36b-479e-863b-a0881fde4f7e', 
+                    withCredentials([usernamePassword(credentialsId: '2cb0c187-8163-4e27-a037-0f77cea469e3', 
                                                      usernameVariable: 'DOCKER_USERNAME', 
                                                      passwordVariable: 'DOCKER_PASSWORD')]) {
                         sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
@@ -59,9 +59,9 @@ pipeline {
             }
             steps {
                 // Docker push commands
-                sh 'docker push moamrn:apiGateway'
-                sh 'docker push moamrn:books-service'
-                sh 'docker push moamrn:users-service'
+                sh 'docker push malek140:apiGateway'
+                sh 'docker push malek140:MicroSer'
+                sh 'docker push malek140:MicroServ'
             }
         }
     }
